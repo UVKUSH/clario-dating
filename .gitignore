@@ -1,7 +1,10 @@
 # Local media / working assets — deliberately kept OUT of this public repo.
-# These live on disk only. Do not remove this rule without re-reviewing the
+# These live on disk only. Do not remove either rule without re-reviewing the
 # contents first; the folder has held personal photos and screen recordings.
+# Both spellings are listed on purpose: the folder on disk is "assests" (sic),
+# so a future rename to the correct "assets" must not silently un-ignore it.
 assests/
+assets/
 
 # macOS
 .DS_Store
