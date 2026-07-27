@@ -3,8 +3,10 @@
 # contents first; the folder has held personal photos and screen recordings.
 # Both spellings are listed on purpose: the folder on disk is "assests" (sic),
 # so a future rename to the correct "assets" must not silently un-ignore it.
-assests/
-assets/
+# The leading slash anchors these to the repo root — without it, "assets/" also
+# matches src/assets/ and would silently drop frontend images from the repo.
+/assests/
+/assets/
 
 # macOS
 .DS_Store

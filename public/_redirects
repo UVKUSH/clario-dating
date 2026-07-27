@@ -1,0 +1,8 @@
+# Cloudflare Pages SPA fallback.
+# React Router owns /candidates, /candidate/:slug, /leaderboard etc. on the client.
+# Without this, a direct load or refresh of any route other than / returns 404,
+# because Pages looks for a matching file on disk and finds none.
+#
+# /api/* is deliberately NOT rewritten — those requests must reach the Worker.
+/api/*  /api/:splat  200
+/*      /index.html  200

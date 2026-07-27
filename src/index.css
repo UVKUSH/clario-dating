@@ -1,0 +1,44 @@
+@import 'tailwindcss';
+
+/* Tailwind v4 keeps design tokens in CSS, not a JS config file. Anything defined
+   here becomes a utility automatically (--color-ink-700 -> text-ink-700). */
+@theme {
+  --color-ink-900: oklch(0.19 0.02 300);
+  --color-ink-700: oklch(0.42 0.02 300);
+  --color-ink-500: oklch(0.58 0.015 300);
+
+  --color-paper: oklch(0.99 0.005 90);
+  --color-paper-alt: oklch(0.96 0.008 90);
+  --color-line: oklch(0.9 0.008 300);
+
+  --color-blush-50: oklch(0.97 0.02 15);
+  --color-blush-500: oklch(0.66 0.19 15);
+  --color-blush-600: oklch(0.58 0.19 15);
+}
+
+@layer base {
+  html {
+    /* iOS Safari inflates text in landscape without this. */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-paper text-ink-900 antialiased;
+    font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    /* Keep content clear of the home indicator on phones. */
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-blush-500;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
