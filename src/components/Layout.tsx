@@ -8,10 +8,15 @@ const NAV = [
 
 export default function Layout() {
   const { pathname } = useLocation()
-  // The moderation dashboard is not part of the public site's chrome.
-  const bare = pathname.startsWith('/admin')
 
-  if (bare) {
+  // The landing page is a full-bleed photo and renders its own overlaid bar,
+  // so it takes the viewport without this layout's header, padding or footer.
+  if (pathname === '/') {
+    return <Outlet />
+  }
+
+  // The moderation dashboard is not part of the public site's chrome.
+  if (pathname.startsWith('/admin')) {
     return (
       <main className="mx-auto min-h-dvh w-full max-w-3xl px-4 py-8">
         <Outlet />

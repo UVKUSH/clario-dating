@@ -1,52 +1,70 @@
 import { Link } from 'react-router-dom'
+import hero from '../assets/hero.webp'
+
+const NAV = [
+  { to: '/candidates', label: 'Candidates' },
+  { to: '/leaderboard', label: 'Leaderboard' },
+  { to: '/rules', label: 'Rules' },
+]
 
 export default function Landing() {
   return (
-    <div className="space-y-10">
-      <section className="space-y-4 pt-6">
-        <h1 className="text-4xl font-semibold leading-tight tracking-tight text-balance">
-          Apply to be Clairo&rsquo;s date.
-        </h1>
-        <p className="max-w-prose text-ink-700">
-          Tell us who you are. Applications are reviewed before anyone appears
-          publicly, and the community votes on who makes the shortlist.
-        </p>
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <Link
-            to="/apply"
-            className="rounded-full bg-blush-500 px-6 py-3 text-center font-medium text-white transition-colors hover:bg-blush-600"
-          >
-            Apply now
-          </Link>
-          <Link
-            to="/candidates"
-            className="rounded-full border border-line px-6 py-3 text-center font-medium text-ink-900 transition-colors hover:bg-paper-alt"
-          >
-            Browse candidates
-          </Link>
-        </div>
-      </section>
+    <div className="relative h-dvh w-full overflow-hidden bg-black">
+      <img
+        src={hero}
+        alt=""
+        width={2048}
+        height={1536}
+        // The photo is 4:3 but phones are ~9:19.5, so object-cover shows only
+        // about a third of its width. Biasing left of centre keeps both subjects
+        // in frame instead of cropping to just one.
+        className="absolute inset-0 size-full object-cover object-[42%_28%]"
+        fetchPriority="high"
+      />
 
-      <section className="space-y-4">
-        <h2 className="text-sm font-medium uppercase tracking-wide text-ink-500">
-          How it works
-        </h2>
-        <ol className="space-y-3">
-          {[
-            'Submit your application with one photo.',
-            'A moderator reviews it before it goes public.',
-            'Visitors vote — three votes each, one per candidate.',
-            'Public votes decide the finalists. Clairo and her team choose the winner.',
-          ].map((step, i) => (
-            <li key={step} className="flex gap-3">
-              <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-blush-50 text-xs font-medium text-blush-600">
-                {i + 1}
-              </span>
-              <span className="text-ink-700">{step}</span>
-            </li>
-          ))}
-        </ol>
-      </section>
+      {/* The headline sits centred over the photo, so it needs an even tint
+          rather than an edge gradient — white text over unpredictable midtones
+          is otherwise unreadable. */}
+      <div aria-hidden="true" className="absolute inset-0 bg-black/40" />
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/50 to-transparent"
+      />
+
+      <header className="absolute inset-x-0 top-0 z-10 pt-[env(safe-area-inset-top)]">
+        <div className="mx-auto flex h-16 w-full max-w-5xl items-center justify-between px-5">
+          <Link
+            to="/"
+            className="text-lg font-semibold tracking-tight text-white drop-shadow"
+          >
+            Clario
+          </Link>
+          <nav className="flex items-center gap-1 text-sm">
+            {NAV.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className="rounded-full px-3 py-1.5 text-white/85 transition-colors hover:bg-white/15 hover:text-white"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+      </header>
+
+      {/* One link, two lines, centred in the viewport. */}
+      <Link
+        to="/apply"
+        className="absolute inset-0 z-10 flex flex-col items-center justify-center px-5 text-center transition-opacity hover:opacity-85"
+      >
+        <span className="whitespace-nowrap text-[clamp(1.75rem,9vw,5rem)] font-semibold leading-[1.05] tracking-tight text-white drop-shadow-lg">
+          Enter the contest
+        </span>
+        <span className="whitespace-nowrap text-[clamp(1.75rem,9vw,5rem)] font-semibold leading-[1.05] tracking-tight text-white drop-shadow-lg">
+          Play the game
+        </span>
+      </Link>
     </div>
   )
 }
